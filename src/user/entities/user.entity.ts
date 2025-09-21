@@ -5,6 +5,10 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'ty
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+  
+
+  @Column({ unique: true })
+  provider_id: string;
 
   @Column()
   name: string;
