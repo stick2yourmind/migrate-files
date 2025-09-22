@@ -3,6 +3,8 @@ import { ProviderService } from './provider.service';
 import { CreateProviderDto } from './dto/create-provider.dto';
 import { UpdateProviderDto } from './dto/update-provider.dto';
 
+import { Query } from '@nestjs/common';
+
 @Controller('provider')
 export class ProviderController {
   constructor(private readonly providerService: ProviderService) {}
@@ -12,9 +14,16 @@ export class ProviderController {
     return this.providerService.create(createProviderDto);
   }
 
+
   @Get()
-  findAll() {
-    return this.providerService.findAll();
+    find(@Query('userNames') userNames: string[] | string) {
+      let names: string[] = [];
+      if (Array.isArray(userNames)) {
+        names = userNames;
+      } else if (typeof userNames === 'string' && userNames.length > 0) {
+        names = userNames.split(',');
+      }
+      return this.providerService.find(names);
   }
 
   @Get(':id')
