@@ -1,7 +1,7 @@
 import { User } from 'src/user/entities/user.entity';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 
-@Entity()
+@Entity('providers')
 export class Provider {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -11,7 +11,13 @@ export class Provider {
 
   @Column()
   authModule: string;
+  
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @OneToOne(() => User, (user) => user.provider)
-  user: User;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
+
+  @OneToMany(() => User, (user) => user.provider)
+  users: User[];
 }
