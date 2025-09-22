@@ -32,7 +32,7 @@ export class ProviderService {
   async findByUserNames(userNames: string[]) {
     return this.providerRepository
       .createQueryBuilder('provider')
-      .innerJoin('provider.users', 'user')
+      .innerJoinAndSelect('provider.users', 'user')
       .where('user.name IN (:...userNames)', { userNames })
       .distinct(true)
       .getMany();
