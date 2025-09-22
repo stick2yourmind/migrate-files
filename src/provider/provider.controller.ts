@@ -10,12 +10,6 @@ import { ProvidersResponseDto } from './dto/response/providers.response.dto';
 export class ProviderController {
   constructor(private readonly providerService: ProviderService) {}
 
-  @Post()
-  create(@Body() createProviderDto: CreateProviderDto) {
-    return this.providerService.create(createProviderDto);
-  }
-
-
   @Get()
     async find(@Query('userNames') userNames: string[] | string) {
       let names: string[] = [];
@@ -26,20 +20,5 @@ export class ProviderController {
       }
       const providers = await this.providerService.find(names);
       return new ProvidersResponseDto(providers);
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.providerService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProviderDto: UpdateProviderDto) {
-    return this.providerService.update(+id, updateProviderDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.providerService.remove(+id);
   }
 }
