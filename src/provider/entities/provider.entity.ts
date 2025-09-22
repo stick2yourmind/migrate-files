@@ -6,10 +6,10 @@ export class Provider {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ name: 'content_module' })
   contentModule: string;
 
-  @Column()
+  @Column({ name: 'auth_module' })
   authModule: string;
   
   @CreateDateColumn({ name: 'created_at' })
